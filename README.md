@@ -13,6 +13,5 @@ npm run dev## Instructions to run
 * https://www.npmjs.com/package/react-big-calendar
 
 ## Acknowledgments
-* https://github.com/learncodeacademy/react-js-tutorials
-* https://github.com/davidkpiano/react-simple-datepicker
+* https://github.com/michaelcheng429/react-tutorial-todos
 * http://intljusticemission.github.io/react-big-calendar/examples/index.html
