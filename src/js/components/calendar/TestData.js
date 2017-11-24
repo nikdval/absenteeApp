@@ -9,38 +9,47 @@ export default {
             {
                 start: 1,
                 length: 5,
+                class: "d1"
             },
             {
                 start: 5,
                 length: 1,
+                class: "d1"
             },
             {
                 start: 5,
                 length: 3,
+                class: "d1"
             },
             {
                 start: 12,
                 length: 15,
+                class: "d2"
             },
             {
                 start: 15,
                 length: 45,
+                class: "d2"
             },
             {
                 start: 18,
                 length: 6,
+                class: "d2"
             },
             {
                 start: 21,
                 length: 5,
+                class: "d2"
             },
             {
                 start: 24,
                 length: 14,
+                class: "d2"
             },
             {
                 start: 25,
                 length: 9,
+                class: "d2"
             },
         ]
 
@@ -51,7 +60,7 @@ export default {
             return {
                  start: today.date(data.start).format(dataFormat),
                  end: today.add(data.length-1, 'days').format(dataFormat),
-                 eventClasses: 'custom-event-class',
+                 eventClasses: data.class,
                  title: data.length + ' day event ' + (data.title || ''),
                  description: description
             }
