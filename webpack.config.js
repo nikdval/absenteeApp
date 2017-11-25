@@ -18,15 +18,20 @@ module.exports = {
     },
     module: {
         loaders: [
-        {
-            test: /\.jsx?$/,
-            exclude: /node_modules/,
-            loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015']
-        }
+            {
+                    test: /\.js?$/,
+                    exclude: /node_modules/,
+                    loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015']
+                },
+                {
+                    test: /\.scss$/,
+                    loaders: ['style', 'css', 'sass']
+                }    
         ]
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin(),
+        
     ]
 };
