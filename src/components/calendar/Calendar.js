@@ -12,7 +12,7 @@ export default class Calendar extends React.Component{
   render(){
 
     return (
-      <div >
+      <div className="col-md-4">
         <BigCalendar
           events={events}
           defaultDate={new Date(2015, 3, 1)}
