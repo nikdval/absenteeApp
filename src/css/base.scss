@@ -29,7 +29,11 @@ a{
 @import 'modules/header';
 @import 'modules/footer';
 
+.main{
+    margin-top: 50px;
+}
 
 /* MODULES 
 ================================================================= */
 @import 'modules/calendar';
+@import 'modules/headerMonth';

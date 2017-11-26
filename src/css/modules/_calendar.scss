@@ -2,3 +2,18 @@
   flex: 1;
   min-height: 400px;
 }
+.rbc-month-header{
+  background: $greylight;
+}
+.rbc-day-bg{
+  &:nth-child(6n), &:nth-child(7n){
+    background: $greydark;
+  }
+}
+// .rbc-off-range-bg{
+//   background: #E5E5E5!important;
+// }
+.rbc-today{
+  background-color: lighten($purple,15%)!important;
+  background: $purple;
+}
