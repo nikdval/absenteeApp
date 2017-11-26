@@ -1,33 +1,27 @@
 import React from "react";
 
 export default class AddForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { value: '' };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({ value: event.target.value });
+    }
+
+    handleSubmit(event) {
+        alert('A name was submitted: ' + this.state.value);
+        event.preventDefault();
+    }
     render() {
         // Render nothing if the "show" prop is false
         if (!this.props.show) {
             return null;
         }
-
-        // The gray background
-        const backdropStyle = {
-            position: 'fixed',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            backgroundColor: 'rgba(0,0,0,0.3)',
-            padding: 50
-        };
-
-        // The modal "window"
-        const modalStyle = {
-            backgroundColor: '#fff',
-            borderRadius: 5,
-            maxWidth: 500,
-            minHeight: 300,
-            margin: '0 auto',
-            padding: 30
-        };
-
         return (
 
             <div className="modal fade" id="myModal" role="dialog">
@@ -38,16 +32,24 @@ export default class AddForm extends React.Component {
                             <h4 className="modal-title">Modal Header</h4>
                         </div>
                         <div className="modal-body">
-                            <p>Some text in the modal.</p>
+                            <form onSubmit={this.handleSubmit}>
+                                <label>
+                                    Name:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+                                </label>
+                                
+                                <div className="modal-footer">
+                                    <button className="btn-primary" type="submit" data-dismiss="modal" onClick={this.props.onClose} >
+                                        Save</button>
+                                    <button data-dismiss="modal" onClick={this.props.onClose}>
+                                        Close</button>
+                                </div>
+                            </form>
                         </div>
                         {this.props.children}
-                    
-                    <div className="modal-footer">
-                        <button data-dismiss="modal" onClick={this.props.onClose}>
-                            Close
-                </button>
+
+
                     </div>
-                </div>
                 </div>
             </div>
         );
