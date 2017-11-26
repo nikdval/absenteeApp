@@ -1,44 +1,55 @@
 import React from "react";
 
 export default class AddForm extends React.Component {
-  
     render() {
-        if(!this.props.show) {
+        // Render nothing if the "show" prop is false
+        if (!this.props.show) {
             return null;
-            console.log()
-          }
+        }
+
+        // The gray background
+        const backdropStyle = {
+            position: 'fixed',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: 'rgba(0,0,0,0.3)',
+            padding: 50
+        };
+
+        // The modal "window"
+        const modalStyle = {
+            backgroundColor: '#fff',
+            borderRadius: 5,
+            maxWidth: 500,
+            minHeight: 300,
+            margin: '0 auto',
+            padding: 30
+        };
+
         return (
-            <div id="about">
-                <div className="modal fade" id="addForm" role="dialog">
-                    <div className="modal-dialog">
-                        {/* Modal content-->*/}
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <button type="button" className="close" data-dismiss="modal">&times;</button>
-                                <h4 className="modal-title">About the Project</h4>
-                            </div>
-                            <div className="modal-body" id="aboutText1">
 
-
-                            </div>
-                            <div className="modal-header">
-                                <h4 className="modal-title">Could we Follow Suit?</h4>
-                            </div>
-                            <div className="modal-body" id="aboutText2">
-
-                                <button type="button" className="" data-dismiss="modal">Close</button>
-                            </div>
+            <div className="modal fade" id="myModal" role="dialog">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal" onClick={this.props.onClose}>&times;</button>
+                            <h4 className="modal-title">Modal Header</h4>
                         </div>
-
+                        <div className="modal-body">
+                            <p>Some text in the modal.</p>
+                        </div>
+                        {this.props.children}
+                    
+                    <div className="modal-footer">
+                        <button data-dismiss="modal" onClick={this.props.onClose}>
+                            Close
+                </button>
                     </div>
+                </div>
                 </div>
             </div>
         );
     }
 }
-
-AddForm.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    show: PropTypes.bool,
-    // children: PropTypes.node
-  };
