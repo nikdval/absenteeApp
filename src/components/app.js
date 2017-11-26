@@ -7,19 +7,18 @@ import base from '../css/base.scss';
 require("!style!css!react-big-calendar/lib/css/react-big-calendar.css")
 
 export default class App extends React.Component {
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props);
         this.state = {
-
+            events: this.props
         };
     }
-
     render() {
+
         return (
             <div>
                 <Header />
-                <Main />
+                <Main events={this.state.events} />
                 <Footer />
             </div>
         );
