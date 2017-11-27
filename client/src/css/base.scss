@@ -1,0 +1,39 @@
+/* BASE - Base Variable file along with starting point Mixins and Placeholders.
+================================================================= */
+@import 'base/variables';
+@import 'base/placeholders';
+
+/* BASE FONTS - Body, links, headers.
+================================================================= */
+body{
+    font-size:15px;
+    line-height:1.8em;
+	font-weight:400;
+	font-family:$font-primary;
+}
+a{
+	text-decoration:none;
+    color:$bluedark;
+    &:hover,
+    focus,
+    visited{
+        text-decoration:none;
+        outline:none;
+    }
+}
+.text-white{
+    color:white;
+}
+/* FRAMEWORK - Header,Footer, Main.
+================================================================= */
+@import 'modules/header';
+@import 'modules/footer';
+
+.main{
+    margin-top: 50px;
+}
+
+/* MODULES 
+================================================================= */
+@import 'modules/calendar';
+@import 'modules/headerMonth';

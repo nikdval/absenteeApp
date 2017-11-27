@@ -1,0 +1,22 @@
+.rbc-calendar{
+  flex: 1;
+  min-height: 400px;
+}
+.rbc-month-header{
+  background: $greylight;
+}
+.rbc-day-bg{
+  &:nth-child(6n), &:nth-child(7n){
+    background: $greydark;
+  }
+}
+
+.rbc-today{
+  background-color: lighten($purple,15%)!important;
+  background: $purple;
+}
+
+.rbc-event-content{
+ font-size:9px;
+ line-height:1;
+}
