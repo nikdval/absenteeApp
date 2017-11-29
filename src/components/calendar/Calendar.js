@@ -14,7 +14,6 @@ export default class Calendar extends React.Component{
     this.selectHandler = this.selectHandler.bind(this);
   }
   eventStyleGetter (event, start, end, isSelected) {
-    console.log(event);
     var style = {
         backgroundColor: (event.user==true? "red":"blue"),
         height: 15,

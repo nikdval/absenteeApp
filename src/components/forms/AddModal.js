@@ -1,15 +1,18 @@
 import React from "react";
 import moment from 'moment';
+// import events from '/../../data/testData.js';
 
 export default class AddForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: '',
+            id:"5",
+            name:"Mark Twain",
+            title: '',
             start: '',
             end: '',
             unit: '',
-            title: ''
+            currentuser: true    
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -54,8 +57,9 @@ export default class AddForm extends React.Component {
                             <button type="button" className="close" data-dismiss="modal" onClick={this.props.onClose}>&times;</button>
                             <h4 className="modal-title">Modal Header</h4>
                         </div>
-                        <form onSubmit={this.handleSubmit}>
+                        
                             <div className="modal-body">
+                            <form onSubmit={this.handleSubmit}>
                                 <table className="form-table">
                                     <tr>
                                         <td>When:<input type="text" name="start" value={this.state.start} onChange={this.handleChange} /></td>
@@ -66,14 +70,15 @@ export default class AddForm extends React.Component {
                                         <td></td>
                                     </tr>
                                 </table>
+                                </form>
                             </div>
+                            
                             <div className="modal-footer">
                                 <button className="btn-primary" type="submit" data-dismiss="modal" onClick={this.handleSubmit} >
                                     Save</button>
                                 <button data-dismiss="modal" onClick={this.props.onClose}>
                                     Close</button>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>
