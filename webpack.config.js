@@ -3,17 +3,14 @@ var path = require('path');
 
 module.exports = {
     devtool: 'inline-source-map',
-     entry: path.join(__dirname, '/client/src/index.js'),
-    // entry: {
-    //     Home:[
-    //     'webpack-dev-server/client?http://127.0.0.1:8080/',
-    //     'webpack/hot/only-dev-server',
-    //     './client/src/index.js'
-    // ]},
-
+    entry: [
+        'webpack-dev-server/client?http://127.0.0.1:8080/',
+        'webpack/hot/only-dev-server',
+        './src'
+    ],
     output: {
-        path: path.join(__dirname, '/client/dist/js'),
-        filename: 'bundle.js'
+        path: path.join(__dirname, 'public'),
+        filename: 'bundles/bundle.js'
     },
     resolve: {
         modulesDirectories: ['node_modules', 'src'],
@@ -24,7 +21,6 @@ module.exports = {
             {
                     test: /\.js?$/,
                     exclude: /node_modules/,
-                    include: path.join(__dirname, '/client/src'),
                     loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015']
                 },
                 {
@@ -33,6 +29,8 @@ module.exports = {
                 }    
         ]
     },
- 
-    watch: true
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin()
+    ]
 };

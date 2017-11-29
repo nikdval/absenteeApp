@@ -5,12 +5,11 @@ var config = require('./webpack.config.js')
 var ip = '127.0.0.1'
 var config = require('./webpack.config.js')
 config.entry = {
-    Home:[
-        'webpack-dev-server/client?http://' + ip + ':3000',
+    entry: [
+        'webpack-dev-server/client?http://127.0.0.1:8080/',
         'webpack/hot/only-dev-server',
-        './client/src/index.js',
-    ]
+        './src'
+    ],
 }
 
-config.output.publicPath = 'http://' + ip + ':3000' + '/client/dist/js/'
 module.exports = config
