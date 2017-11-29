@@ -1,12 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+
 const app = express();
-
-//directories
+// tell the app to look for static files in these directories
+app.use(express.static('./server/static/'));
 app.use(express.static('./client/dist/'));
-app.use(express.static('./server/static/'));const express = require('express');
-
-// parse HTTP body messages
+// tell the app to parse HTTP body messages
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // routes
@@ -17,9 +16,3 @@ app.use('/auth', authRoutes);
 app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000 or http://127.0.0.1:3000');
 });
-
-  return res.status(200).end();
-});
-
-
-module.exports = router;
