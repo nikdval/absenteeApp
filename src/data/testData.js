@@ -7,8 +7,7 @@ export default [
         "title": "Vacations",
         "start": "2017, 11, 7",
         "end": "2017, 11, 10",
-        "unit": "allDay",
-        "currentuser":false
+        "unit": "allDay"
       },
       {
         "id": "1",
@@ -16,8 +15,7 @@ export default [
         "title": "Vacations",
         "start": "2017, 11, 18",
         "end": "2017, 11, 25",
-        "unit": "allDay",
-        "currentuser":false
+        "unit": "allDay"
       },
       {
         "id": "2",
@@ -25,8 +23,7 @@ export default [
         "title": "Vacations",
         "start": "2017, 11, 13",
         "end": "2017, 11, 25",
-        "unit": "AM",
-        "currentuser":false
+        "unit": "AM"
       },
       {
         "id": "2",
@@ -34,8 +31,7 @@ export default [
         "title": "Training",
         "start": "2017, 12, 10",
         "end": "2017, 12, 10",
-        "unit": "PM",
-        "currentuser":false
+        "unit": "PM"
       },
       {
         "id": "5",
@@ -43,8 +39,7 @@ export default [
         "title": "Training",
         "start": "2017, 12, 15",
         "end": "2017, 12, 16",
-        "unit": "allDay",
-        "currentuser":true
+        "unit": "allDay"
       }  
     ]
   }

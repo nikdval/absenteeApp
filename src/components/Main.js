@@ -14,6 +14,7 @@ export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user:'',
       absences: [],
       month1: day,
       month2: new Date(year, month2, 1),
@@ -21,7 +22,6 @@ export default class Main extends React.Component {
       isOpen: false,
       triggerData: ''
     };
-    let user = this.props.name
     this.dataConstructor = this.dataConstructor.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.onSelectDay = this.onSelectDay.bind(this);
@@ -34,7 +34,8 @@ export default class Main extends React.Component {
  * Parse data thought HTTP, RSS, websocket or any other alternative
  */
     const members = events[0].d1;
-    const d = this.dataConstructor(members);
+    const userD = this.props.name
+    const d = this.dataConstructor(members,userD);
     this.componentWillReceiveProps(d);
   }
   componentWillReceiveProps(data) {
@@ -60,18 +61,24 @@ export default class Main extends React.Component {
     );
   }
   /* Team members data constructor*/
-  dataConstructor(data) {
+  dataConstructor(data,user) {
+    const current=user.name;
     let holder = data.map(function (element, index) {
       let unit = (element.unit == 'AM' ? 'Morning' : element.unit == 'PM' ? 'Afternoon' : 'All day');
+     /*fix end date error*/
+      let day = new Date(element.end);
+      let nextday = day.setDate(day.getDate() + 1);
+
       let e = {
-        "title": element.name + ": Absent " + unit,
+        "title": (current==element.name?element.title:element.name) + ": Absent " + unit,
         /*-----Alternative title-------
          "title": element.name + " - " + element.title,*/
         "start": new Date(element.start),
-        "end": new Date(element.end),
-        "user": element.currentuser
+        "end": new Date(nextday),
+        "user": (current==element.name?true:false)
       };
       return e;
+      console.log(e.user)
     });
     return holder;
   }

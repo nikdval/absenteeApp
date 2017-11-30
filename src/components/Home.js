@@ -22,7 +22,7 @@ export default class Home extends React.Component {
         return (
             <div>
                 <Header /> 
-                <Main  user={this.state.user} />
+                <Main  name={this.state.user} />
                 <Footer />
             </div>
         );
