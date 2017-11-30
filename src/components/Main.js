@@ -14,7 +14,10 @@ export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user:'',
+      user:{
+        id: '5',
+        name: 'Mark Twain',
+      },
       absences: [],
       month1: day,
       month2: new Date(year, month2, 1),
@@ -25,6 +28,7 @@ export default class Main extends React.Component {
     this.dataConstructor = this.dataConstructor.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.onSelectDay = this.onSelectDay.bind(this);
+    this.updateAbsence = this.updateAbsence.bind(this);
    
   }
   componentDidMount() {
@@ -52,10 +56,12 @@ export default class Main extends React.Component {
           <Calendar month={this.state.month3} absence={this.state.absences} trigger={this.onSelectDay} />
         </div>
         <div className="row">
-          <button className="btn invisible" id="openModal" data-toggle="modal" data-target="#myModal" onClick={this.toggleModal}>Open Modal</button>
-          <AddModal show={this.toggleModal}
+          <button className="invisible" id="openModal" data-toggle="modal" data-target="#myModal" onClick={this.toggleModal}>Open Modal</button>
+          <AddModal 
+            show={this.toggleModal}
             onClose={this.toggleModal} 
-            date={this.state.triggerData} />
+            date={this.state.triggerData} 
+            update = {this.updateAbsence}/>
         </div>
       </div>
     );
@@ -90,7 +96,26 @@ export default class Main extends React.Component {
     document.getElementById('openModal').click();
    
   }
-  
+  /*Data from the Form */ 
+  updateAbsence(newData){
+    let unit = (newData.unit == 'AM' ? 'Morning' : newData.unit == 'PM' ? 'Afternoon' : 'All day');
+    /*fix end date error*/
+    let day = new Date(newData.end);
+    let nextday = day.setDate(day.getDate() + 1);
+
+    const newEvent = {
+      'title': newData.title + ":Absent " + unit,
+      "start": new Date(newData.start),
+      "end": new Date(nextday),
+      "user":true
+    }
+    const absences = this.state.absences;
+    absences.push(newEvent);
+    this.setState({
+      absences
+    })
+    console.log(this.state.absences);
+  }
   toggleModal() {
     this.setState({
       isOpen: !this.state.isOpen

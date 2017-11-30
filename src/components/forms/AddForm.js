@@ -2,69 +2,52 @@ import React from "react";
 import moment from 'moment';
 
 export default class AddForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: '',
-            start: '',
-            end: '',
-            unit: '',
-            title: ''
-        };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        // this.setRules = this.setRules.bind(this);
-    }
-    /*Get values to state and on view*/
-    handleChange(event) {
-        this.setState({
-            start: event.target.value,
-
-        });
-        console.log(event.target.value);
-    }
-    /*POST values*/
-    handleSubmit(event) {
-        /**
-    * POST data to database
-    * Currently to JS object
-    */
-        event.preventDefault();
-        console.log(this.state);
-    }
-    componentWillReceiveProps(data) {
-        this.setState({
-            start: moment(this.props.date.start).format('DD/MM/YYYY'),
-            end: moment(this.props.date.end).format('DD/MM/YYYY'),
-            unit: '',
-            title: ''
-        });
-    }
     render() {
-        // Render nothing if the "show" is false
-        if (!this.props.show) {
-            return null;
-        }
+        const inData = this.props.initial.vacations;
+        const startD = inData.start;
+        const endD = inData.end;
         return (
-            <div className="modal-body" id="form">
-            <form onSubmit={this.handleSubmit}>
-              
-                    <table className="form-table">
-                        <tr>
-                            <td>When:<input type="text" name="start" value={this.state.start} onChange={this.handleChange} /></td>
-                            <td>to <input type="text" value={this.state.start} onChange={this.handleChange} /></td>
-                        </tr>
-                        <tr>
-                            <td>What for: </td>
-                            <td></td>
-                        </tr>
-                    </table>   
-            </form>
-            </div>
-            <div className="modal-body" id="rules">
-            </div>
+            <div>
+                <form action="/" onSubmit={this.props.onSubmit} >
+                    <div className="modal-body" id="form">
 
+                        <table className="form-table">
+                            <tbody>
+                                <tr>
+                                    <td>When:<input type="text" name="start" value={startD} onChange={this.props.onChange} /></td>
+                                    <td>to:<input type="text" name="end" value={endD} onChange={this.props.onChange} /></td>
+                                </tr>
+                                <tr>
+                                    <td>What for:
+                                    <select name="title" onChange={this.props.onChange}>
+                                            <option selected value="Vacation">Vacation</option>
+                                            <option value="Training">Training</option>
+                                        </select>
+                                    </td>
+                                    <td>When :
+                                    <select name="unit" onChange={this.props.onChange}>
+                                            <option selected value="AM">Morning</option>
+                                            <option value="PM">Afternoon</option>
+                                            <option value="allDay">All Day</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="modal-body" id="rules">
+
+                    </div>
+                    <div className="modal-footer">
+                        <button className="btn-primary" type="submit" data-dismiss="modal" onClick={this.props.onSubmit} >
+                            Save</button>
+                        <button data-dismiss="modal" onClick={this.props.onClose}>
+                            Close</button>
+                    </div>
+                </form>
+            </div>
         );
     }
+
 }
