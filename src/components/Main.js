@@ -23,7 +23,8 @@ export default class Main extends React.Component {
       month2: new Date(year, month2, 1),
       month3: new Date(year, month3, 1),
       isOpen: false,
-      triggerData: ''
+      triggerData: '',
+      rawData: []
     };
     this.dataConstructor = this.dataConstructor.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
@@ -39,12 +40,14 @@ export default class Main extends React.Component {
  */
     const members = events[0].d1;
     const userD = this.props.name
-    const d = this.dataConstructor(members,userD);
-    this.componentWillReceiveProps(d);
+    
+    this.componentWillReceiveProps(members,userD);
   }
-  componentWillReceiveProps(data) {
+  componentWillReceiveProps(data,user) {
+    const d = this.dataConstructor(data,user);
     this.setState({
-      absences: data
+      absences: d,
+      rawData:data
     });
   }
   render() {
@@ -61,7 +64,8 @@ export default class Main extends React.Component {
             show={this.toggleModal}
             onClose={this.toggleModal} 
             date={this.state.triggerData} 
-            update = {this.updateAbsence}/>
+            update = {this.updateAbsence}
+            members ={this.state.rawData} />
         </div>
       </div>
     );
@@ -73,7 +77,7 @@ export default class Main extends React.Component {
       let unit = (element.unit == 'AM' ? 'Morning' : element.unit == 'PM' ? 'Afternoon' : 'All day');
      /*fix end date error*/
       let day = new Date(element.end);
-      let nextday = day.setDate(day.getDate() + 1);
+      let nextday = day.setDate(day.getDate())+1;
 
       let e = {
         "title": (current==element.name?element.title:element.name) + ": Absent " + unit,
@@ -84,7 +88,6 @@ export default class Main extends React.Component {
         "user": (current==element.name?true:false)
       };
       return e;
-      console.log(e.user)
     });
     return holder;
   }
@@ -115,6 +118,10 @@ export default class Main extends React.Component {
       absences
     })
     console.log(this.state.absences);
+    // const update = Object.assign(this.state.user,newData);
+    // const raw = this.state.rawData;
+    // raw.push(update);
+    // this.componentWillReceiveProps(raw,this.state.user)
   }
   toggleModal() {
     this.setState({

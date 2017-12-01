@@ -23,8 +23,8 @@ export default class AddModal extends React.Component {
         this.setState({
             vacations:{
                 title: '',
-                start: moment(this.props.date.end).format('DD/MM/YYYY'),
-                end:moment(this.props.date.start).format('DD/MM/YYYY'),
+                start: moment(this.props.date.start).format('DD/MM/YY'),
+                end:moment(this.props.date.end).format('DD/MM/YY'),
                 unit: ''
                 }   
         });
@@ -47,7 +47,8 @@ export default class AddModal extends React.Component {
                            initial= {this.state} 
                            onChange={this.handleChange} 
                            onSubmit={this.handleSubmit} 
-                           onClose ={this.props.onClose} />
+                           onClose ={this.props.onClose} 
+                           members={this.props.members} />
                            
                     </div>
                 </div>
