@@ -48,37 +48,30 @@ const Rules = (props) => {
 
 
     /*https://chandoo.org/wp/2010/06/01/date-overlap-formulas/ */
-    function overlap(starA, endA, element) {
-        const startB = new Date(element.start);
-        const endB = new Date(element.end);
-        const totalB = totalWorkingDays(startB, endB);
-
-        /*https://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap*/
-        if (startA <= endB && endA >= startB) {
-            if (startB <= startA && endB >= endA && totalA >= 4) { //your vacations is in the vactions of another user
-                //console.log("Your absense is within 4 days of " + element.name);
-                return ["Your absense is within 4 days of ", element.name]
-            } else {
-                return "<span>" + element.name +"</span>" + "will be absent from"  + startB + " to " + endB
-                // console.log(element.name + " will be absent from " + startB + " to" + endB);
-            }
-        }
-    }
-
-
+    /*https://derickbailey.com/2015/09/07/check-for-date-range-overlap-with-javascript-arrays-sorting-and-reducing/*/
+  
     const rules = members.map(function (element, index) {
         const startB = new Date(element.start);
         const endB = new Date(element.end);
         const totalB = totalWorkingDays(startB, endB);
         /*https://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap*/
         if (startA <= endB && endA >= startB) {
-            if (startB <= startA && endB >= endA && totalA >= 4) { //your vacations is in the vactions of another user
+            if (startB <= startA && endB >= endA && totalA >= 4) { //only when vacations is in the vactions of another user
                 //console.log("Your absense is within 4 days of " + element.name);
                 return <p><i className='fa fa-user'> </i>Your absense is within 4 days of <i className="purple" > {element.name} </i></p>
             } else {
                 return <p><i className='fa fa-user'></i><i className="purple">{element.name}</i> will be absent from <i className="purple">{moment(startB).format('DD/MM/YYYY')}</i> to <i className="purple">{moment(endB).format('DD/MM/YYYY')}</i> </p>
                 // console.log(element.name + " will be absent from " + startB + " to" + endB);
             }
+        }
+        const ajustRule1= endA.setDate(endA.getDate()+1) == startB.setDate(startB.getDate());
+        const ajustRule2= startA.setDate(startA.getDate()) == endB.setDate(endB.getDate()+1);
+   
+        if(ajustRule1 ){
+           console.log('adjust');
+           return <p><i className='fa fa-user'></i><i className="purple">{element.name}</i> will be absent next day</p>
+        }else if(ajustRule2){
+            return <p><i className='fa fa-user'></i><i className="purple">{element.name}</i> will be absent until the previous day</p>
         }
     });
 

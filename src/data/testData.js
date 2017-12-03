@@ -41,6 +41,16 @@ export default [
         "end": "2018, 01, 16",
         "unit": "allDay"
       }  
-    ]
+    ],
+    "projectA":[
+      {
+      "id": "A001",
+      "name": "Final Report",
+      "title": "Report",
+      "start": "2017, 12, 12",
+      "end": "2017, 12, 12",
+      "unit": "PM",
+      }
+    ]    
   }
 ]

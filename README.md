@@ -11,6 +11,7 @@ npm run dev## Instructions to run
 ## Build With
 * React
 * https://www.npmjs.com/package/react-big-calendar
+* https://www.npmjs.com/package/moment-holiday 
 
 ## Acknowledgments
 * https://github.com/michaelcheng429/react-tutorial-todos

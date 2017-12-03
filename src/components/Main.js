@@ -3,34 +3,27 @@ import Calendar from './calendar/Calendar';
 import events from '../data/testData';
 import AddModal from './forms/AddModal';
 
-let day = new Date();
-let year = day.getFullYear();
-let month2 = day.getMonth() + 1;
-let month3 = month2 + 1;
 
-
+const day = new Date();
+const year = day.getFullYear();
 
 export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user:{
-        id: '5',
-        name: 'Mark Twain',
-      },
+      user:this.props.user,
       absences: [],
-      month1: day,
-      month2: new Date(year, month2, 1),
-      month3: new Date(year, month3, 1),
+      month: day.getMonth(),
       isOpen: false,
       triggerData: '',
-      rawData: []
+      rawData: [],
     };
     this.dataConstructor = this.dataConstructor.bind(this);
+    this.onClickBtn = this.onClickBtn.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.onSelectDay = this.onSelectDay.bind(this);
     this.updateAbsence = this.updateAbsence.bind(this);
-   
+    this. getHolydaysFromApiAsync = this. getHolydaysFromApiAsync.bind(this);
   }
   componentDidMount() {
     /**
@@ -38,25 +31,42 @@ export default class Main extends React.Component {
  * Currently from JS object
  * Parse data thought HTTP, RSS, websocket or any other alternative
  */
+    /**
+     * For different departments the d1 will be replaced by the filtering selection
+     * Depending how many projects the differenciation could be by ID
+     */
     const members = events[0].d1;
-    const userD = this.props.name
-    
-    this.componentWillReceiveProps(members,userD);
+    const projects = events[0].projectA;
+    const merged = members.concat(projects);
+    /*Fetch all data*/
+    this.getHolydaysFromApiAsync(merged);
+
   }
-  componentWillReceiveProps(data,user) {
-    const d = this.dataConstructor(data,user);
+  componentWillReceiveProps(data,raw) {
     this.setState({
-      absences: d,
-      rawData:data
+      absences: data,
+      rawData:raw
     });
+  }
+  componentDidUpdate(prevProps, prevState) {
+    // only update chart if the data has changed
+    if (prevState.month !== this.state.month) {
+      this.state = {
+        month: this.state.month
+      };
+    }
   }
   render() {
     return (
-      <div className="main container">
+      <div className="main .container-fluid">
         <div className="row">
-          <Calendar month={this.state.month1} absence={this.state.absences} trigger={this.onSelectDay} />
-          <Calendar month={this.state.month2} absence={this.state.absences} trigger={this.onSelectDay} />
-          <Calendar month={this.state.month3} absence={this.state.absences} trigger={this.onSelectDay} />
+        <button className="col-md-1 btn-nav fa fa-angle-left" id="previous" onClick={(event) => this.onClickBtn(event,false)} ></button>
+        <div className="col-md-10 text-center">
+          <Calendar month={new Date(year, this.state.month, 1)} absence={this.state.absences} trigger={this.onSelectDay} />
+          <Calendar month={new Date(year, this.state.month+1, 1)} absence={this.state.absences} trigger={this.onSelectDay} />
+          <Calendar month={new Date(year, this.state.month+2, 1)}  absence={this.state.absences} trigger={this.onSelectDay} />
+          </div>
+          <button className="col-md-1 btn-nav fa fa-angle-right"id="next" onClick={(event) => this.onClickBtn(event,true)}></button>
         </div>
         <div className="row">
           <button className="invisible" id="openModal" data-toggle="modal" data-target="#myModal" onClick={this.toggleModal}>Open Modal</button>
@@ -70,17 +80,18 @@ export default class Main extends React.Component {
       </div>
     );
   }
-  /* Team members data constructor*/
+  /* Data constructor for the Calendar*/
   dataConstructor(data,user) {
     const current=user.name;
     let holder = data.map(function (element, index) {
       let unit = (element.unit == 'AM' ? 'Morning' : element.unit == 'PM' ? 'Afternoon' : 'All day');
+      let text = (element.title=='Report'?(' - Due by '+unit): element.title == 'Public Holiday' ? '- Public Holiday ' : (': Absent '+unit));
      /*fix end date error*/
       let day = new Date(element.end);
       let nextday = day.setDate(day.getDate())+1;
 
       let e = {
-        "title": (current==element.name?element.title:element.name) + ": Absent " + unit,
+        "title": (current==element.name?element.title:element.name) + text,
         /*-----Alternative title-------
          "title": element.name + " - " + element.title,*/
         "start": new Date(element.start),
@@ -91,13 +102,58 @@ export default class Main extends React.Component {
     });
     return holder;
   }
+  /*Fetch data function*/
+ getHolydaysFromApiAsync(events) {
+   /*public Holidays from Google API*/
+  var key= "AIzaSyB2V8uPTufJu0ymaRw88u8CftfLo8T9XgA";
+  var country ="uk";
+  var calendarUrl = 'https://www.googleapis.com/calendar/v3/calendars/en.' + country 
+                  + '%23holiday%40group.v.calendar.google.com/events?key='+key;
+    return fetch(calendarUrl)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      let results = responseJson.items
+      let holydays= results.map(function(element, index){
+          let holyObj = {
+            "name": element.summary,
+            "title": "Public Holiday",
+            "start" : element.start.date,
+            "end": element.start.date,
+            "unit": ""
+          }
+          return holyObj;
+        })
+         /*Combine all data and push them to this.state => Calendar*/
+        const totalEvents=events.concat(holydays);
+        console.log(totalEvents);
+        const resultCalendar = this.dataConstructor(totalEvents,this.state.user);
+        this.componentWillReceiveProps(resultCalendar,events);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+ }
+ 
+
+  /*Buton onCick*/
+  onClickBtn(e, navigation){ 
+      e.preventDefault();
+     let nextMonth=null;
+    if(navigation==true){
+      nextMonth= this.state.month+1  ;
+    }else{
+      nextMonth= this.state.month-1  ;
+    }
+    this.setState({
+      month:nextMonth
+    })
+  }
   /*AddForm */
   onSelectDay(selectDay) {
     this.setState({
       triggerData: selectDay
     });
-    document.getElementById('openModal').click();
-   
+    document.getElementById('openModal').click(); 
   }
   /*Data from the Form */ 
   updateAbsence(newData){
@@ -112,16 +168,13 @@ export default class Main extends React.Component {
       "end": new Date(nextday),
       "user":true
     }
-    const absences = this.state.absences;
-    absences.push(newEvent);
+    
+    const newabsence = this.state.absences;
+    newabsence.push(newEvent);
     this.setState({
-      absences
+      absences:newabsence
     })
-    console.log(this.state.absences);
-    // const update = Object.assign(this.state.user,newData);
-    // const raw = this.state.rawData;
-    // raw.push(update);
-    // this.componentWillReceiveProps(raw,this.state.user)
+    console.log(this.state.absences)
   }
   toggleModal() {
     this.setState({
