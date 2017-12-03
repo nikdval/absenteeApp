@@ -24,20 +24,30 @@ a{
 .text-white{
     color:white;
 }
+.purple{
+    color: $purple;
+}
+.blue{
+    background: $blue;
+}
+.green{
+    background: $green;
+}
 /* FRAMEWORK - Header,Footer, Main.
 ================================================================= */
 @import 'modules/header';
+@import 'modules/userheader';
 @import 'modules/footer';
 
 .main{
-    margin-top: 50px;
+    margin-top: 20px;
 }
 .btn-nav{
     display: block;
     width:5%;
     margin-left:1%;
     margin-right:1%;
-    margin-top: 15%;
+    margin-top: 10px;
     font-size:40px;
     background: transparent;
     border:none;
@@ -51,3 +61,4 @@ a{
 ================================================================= */
 @import 'modules/calendar';
 @import 'modules/headerMonth';
+@import 'modules/rules';

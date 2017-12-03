@@ -6,6 +6,8 @@ export default class AddModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            holidays:this.props.holidays,
+            leftDays:this.props.leftDays,
             vacations:{
             title: '',
             start: '',
@@ -16,15 +18,14 @@ export default class AddModal extends React.Component {
 
         this.handleChange =  this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        // this.setRules = this.setRules.bind(this);
     } 
     /*Update Values of the inputs */
     componentWillReceiveProps(data) {
         this.setState({
             vacations:{
                 title: '',
-                start: moment(this.props.date.start).format('DD/MM/YY'),
-                end:moment(this.props.date.end).format('DD/MM/YY'),
+                start: moment(this.props.date.start).format('YYYY-MM-DD'),
+                end:moment(this.props.date.end).format('YYYY-MM-DD'),
                 unit: ''
                 }   
         });
@@ -71,8 +72,11 @@ export default class AddModal extends React.Component {
     * Currently to JS object
     */
         event.preventDefault();
+        /**
+         * The new vacation days will be referenced to the current user
+         */
+        console.log(this.state.vacations);
         console.log("EXAMPLE SERVER UPDATE REQUES");
-        const newEntry = this.state.vacations;
-        this.props.update(newEntry ); 
+        this.props.update(this.state.vacations); 
     }
 }

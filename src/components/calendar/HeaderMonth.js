@@ -13,11 +13,9 @@ export default class HeaderMonth extends React.Component{
     };
   }
     render(){
-        let { label } = this.props;
-        // let {month} = {label}.split(" ",2)
-        let {num} = "1";
+        let label = this.props;
+        let num = "1";
         
-        // console.log({label})
         return (
           <div className="headermonth">
           <div className= "col-md-4 monthNum">

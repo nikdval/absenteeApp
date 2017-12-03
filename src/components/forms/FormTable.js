@@ -6,13 +6,12 @@ const FormTable = (props) => {
     const inData = props.data.initial.vacations;
     const startD = inData.start;
     const endD = inData.end;
-    //console.log(startD);
     return (
         <table className="form-table">
             <tbody>
                 <tr>
-                    <td>When:<input type="text" name="start" value={startD} onChange={props.data.onChange} /></td>
-                    <td>to:<input type="text" name="end" value={endD} onChange={props.data.onChange} /></td>
+                    <td>When:<input type="date" name="start" value={startD} onChange={props.data.onChange} /></td>
+                    <td>to:<input type="date" name="end" value={endD} onChange={props.data.onChange} /></td>
                 </tr>
                 <tr>
                     <td>What for:

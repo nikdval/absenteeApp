@@ -1,11 +1,8 @@
 import React from "react";
-import moment from 'moment';
 import FormTable from './FormTable';
 import Rules from './Rules';
 
 const AddForm = (props) => {
-
-    //console.log(startD);
     return (
         <div>
             <form action="/" onSubmit={props.onSubmit} >
