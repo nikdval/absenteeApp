@@ -1,17 +1,27 @@
-npm run dev## Instructions to run
 # Abentee Manager
-=================
 
-## Installing
-1. Navigate to folder */absenteeApp*
-2. *NPM install*
-3. *NPM run dev*
-4. Navigate to localhost:8080
+## USAGE
+Follow next article or Download this repository
 
 ## Build With
 * React
 * https://www.npmjs.com/package/react-big-calendar
-* https://www.npmjs.com/package/moment-holiday 
+* https://developers.google.com/google-apps/calendar/
+
+
+## =============== Local Installation ===============
+### Git Clone
+* git clone https://github.com/nikdval/absenteeApp
+
+### Install react and libraries packages
+*  Navigate to folder */absenteeApp*
+*  npm install
+
+### Run the App
+#### ======== Developer Mode =========
+* mpm run dev
+* Open the browser to localhost:8080
+
 
 ## Acknowledgments
 * https://github.com/michaelcheng429/react-tutorial-todos

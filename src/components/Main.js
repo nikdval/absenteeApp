@@ -21,7 +21,6 @@ export default class Main extends React.Component {
       holidays: [],
     };
     this.dataConstructor = this.dataConstructor.bind(this);
-    this.onClickBtn = this.onClickBtn.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.onSelectDay = this.onSelectDay.bind(this);
     this.updateAbsence = this.updateAbsence.bind(this);
@@ -67,7 +66,7 @@ export default class Main extends React.Component {
         /*Combine all data and push them to this.state => Calendar*/
         const totalEvents = holidays.concat(events);
         const resultCalendar = this.dataConstructor(totalEvents, this.state.user);
-        this.componentWillReceiveProps(resultCalendar, events, holidays);
+        this.componentWillReceiveProps(resultCalendar, events, holidays,this.state.month);
       })
       .catch((error) => {
         console.error(error);
@@ -95,11 +94,12 @@ export default class Main extends React.Component {
       return holder;
     }
 
-  componentWillReceiveProps(data, raw, holidays) {
+  componentWillReceiveProps(data, raw, holidays,month) {
     this.setState({
       absences: data,
       rawData: raw,
-      holidays: holidays
+      holidays: holidays,
+      month:month
     });
   }
 
@@ -107,29 +107,25 @@ export default class Main extends React.Component {
     return (
       <div className='main .container-fluid'>
         <div className='row'>
-          <button className='col-md-1 col-sm-1 btn-nav fa fa-angle-left' id='previous' onClick={(event) => this.onClickBtn(event, false)} ></button>
-          <div className='col-md-10 col-sm-10 text-center'>
+        <div className='col-md-1'></div>
+          <div className='calendar-wrapper col-md-10 col-sm-11 text-center'>
             <Calendar classHide= {''}
             month={new Date(year, this.state.month, 1)} 
             absence={this.state.absences} 
             trigger={this.onSelectDay} 
-            holidays={this.state.holidays} />
+            holidays={this.state.holidays} 
+            />
             <Calendar classHide= {'hide-mobile'}
             month={new Date(year, this.state.month + 1, 1)} 
             absence={this.state.absences} 
             trigger={this.onSelectDay} 
-            holidays={this.state.holidays}/>
-            <Calendar classHide= {'hide-mobile'}
-            month={new Date(year, this.state.month + 2, 1)} 
-            absence={this.state.absences} 
-            trigger={this.onSelectDay} 
-            holidays={this.state.holidays} 
-            onNavigate={this.onClickBtn} />
+            holidays={this.state.holidays}
+           />
           </div>
-          <button className='col-md-1 col-sm-1 btn-nav fa fa-angle-right' id='next' onClick={(event) => this.onClickBtn(event, true)}></button>
         </div>
+        <div className='col-md-1'></div>
         <div className='row'>
-          <button className='invisible' id='openModal' data-toggle='modal' data-target='#myModal' onClick={this.toggleModal}>Open Modal</button>
+        <button className='invisible' id='openModal' data-toggle='modal' data-target='#myModal' onClick={this.toggleModal}>Open Modal</button>
           <AddModal
             show={this.toggleModal}
             onClose={this.toggleModal}
@@ -144,24 +140,6 @@ export default class Main extends React.Component {
   }
 
 
-
-  /*Buton onCick*/
-  onClickBtn(e, navigation) {
-    e.preventDefault();
-   // toolbar.date.setMonth(toolbar.date.getMonth() + 1);
-    //toolbar.onNavigate('NEXT');
-    if (navigation == true) {
-      tempMonth = this.state.month + 1;
-    } else {
-      tempMonth = this.state.month - 1;
-    }
-    console.log(this.state.month);
-    //const newMonth=new Date(year,tempMonth,1).getMonth();
-    this.setState({
-      month: tempMonth
-    });
-    // console.log(this.state.month);
-  }
   /*AddForm */
   onSelectDay(selectDay) {
     this.setState({

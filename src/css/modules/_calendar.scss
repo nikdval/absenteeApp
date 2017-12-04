@@ -1,6 +1,7 @@
+
 .rbc-calendar{
   flex: 1;
-  min-height: 400px;
+  min-height: 450px;
 }
 .rbc-month-header{
   background: $greylight;
@@ -22,6 +23,9 @@
   font-size:9px;
   line-height:1;
  }
+ .hide-mobile{
+  display: block;
+}
 
 /* Custom, iPhone Retina */
 @media only screen and (min-width : 320px) {
@@ -35,7 +39,7 @@
   
   /* Small Devices, Tablets */
   @media only screen and (min-width : 768px) {
-  
+    
   }
   
   /* Medium Devices, Desktops */
@@ -49,15 +53,7 @@
   }
   /* iPad */
   @media all and (min-width:768px) and (max-width:1023px) {
-      .head-nav {
-          height: $header-m-screen;
-      }
-      .rbc-calendar{
-        min-height: 800px;
-      }
-      .hide-mobile{
-        display: none;
-      }
+    
 }
   
   /*==========  Non-Mobile First Method  ==========*/
@@ -69,22 +65,22 @@
   
   /* Medium Devices, Desktops */
   @media only screen and (max-width : 992px) {
-  
+    .hide-mobile{
+      display: none;
+    }
+    .calendar-wrapper{
+      margin-left:8.3333%
+    }
   }
   
   /* Small Devices, Tablets */
-  @media only screen and (max-width : 768px) {
-   
+  @media only screen and (max-width : 767px) {
+    
   }
   
   /* Extra Small Devices, Phones */
   @media only screen and (max-width : 480px) {
-    .rbc-calendar{
-      min-height: 400px;
-    }
-    .hide-mobile{
-      display: none;
-    }
+    
   }
   
   /* Custom, iPhone Retina */
@@ -93,16 +89,25 @@
   }
   
   @media all and (min-width:1024px) {
-
+   
   }
   
   
   @media all and (max-width:768px) {
-    
+    .hide-mobile{
+      display: none;
+      margin: auto;
+    }
+    .calendar-wrapper{
+      width: 80%;
+    }
   }
   
   @media all and (max-width: 480px){ /* When screen size is 480px */
-  
+   
+    .hide-mobile{
+      display: none;
+    }
     
   }
 

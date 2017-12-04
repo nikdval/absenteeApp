@@ -14,22 +14,8 @@ export default class Calendar extends React.Component{
       month: '',
     };
     this.selectHandler = this.selectHandler.bind(this);
-    this.styleConstructor = this.styleConstructor.bind(this);
-   
   }
 
-  styleConstructor(color){
-    let tempstyle={
-      backgroundColor: eventColor,
-      opacity: 0.9,
-      height: 15,
-      borderRadius: '0px',
-      border: '0px',
-      display: 'block'
-    }
-    return tempstyle
-
-  }
   eventStyleGetter (event, start) {
     const colorArray=['#ffd68f','#a0d4f5', '#d0baab', '#f93411']
     const eventBgColor = event.user? colorArray[0]:event.project?colorArray[3]: colorArray[1]; 
@@ -79,8 +65,8 @@ componentWillReceiveProps(data,month){
 }
 
   render(){
-    console.log(this.props.month);
-    const classMobile = 'col-md-4 col-sm-12 '+ this.props.classHide
+    const tempDate = this.props.month
+    const classMobile = 'col-md-6 col-sm-11 '+ this.props.classHide
     return (
       <div className={classMobile}>
         <BigCalendar
@@ -93,10 +79,9 @@ componentWillReceiveProps(data,month){
           culture='en-GB'
           onSelectSlot={(slotInfo) => (this.selectHandler(slotInfo))}
           eventPropGetter={(this.eventStyleGetter)}
-          onNavigate={this.props.onNavigate}
           components={{
             toolbar: HeaderMonth,
-            slotPropGetter: (date: Date) => { className: 'holiday'}
+         
           }}     
         /> 
       </div>

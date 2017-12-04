@@ -15,6 +15,18 @@
         margin: 0;
     }
 }
+.btn-next{
+    position: fixed;
+    top: 50%;
+    right: 4.5%;
+    display:block;
+}
+.btn-back{
+
+    position: fixed;
+    top: 50%;
+    left: 4%;
+}
 
 /* MEDIA Queries 
 ================================================================= */
@@ -59,7 +71,14 @@
     
     /* Medium Devices, Desktops */
     @media only screen and (max-width : 992px) {
-       
+        .btn-next{
+            top: 30%;
+            right: 3%;
+        }
+        .btn-back{
+            top: 30%;
+            left: 3%;
+        }
     
     }
     
@@ -68,11 +87,19 @@
         .monthNum{
             margin-top: 10px;
         }
+        
     }
     
     /* Extra Small Devices, Phones */
     @media only screen and (max-width : 480px) {
-    
+        .btn-next{
+ 
+            right: 1%;
+        }
+        .btn-back{
+
+            left: -1%;
+        }
     }
     
     /* Custom, iPhone Retina */

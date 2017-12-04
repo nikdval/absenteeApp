@@ -7,8 +7,7 @@ const Info = (props) => {
         <div className='form-section'>
         <ul>
             <li>Total week days: {props.current}</li>
-            <li style={style} /*onChange={props.onChange}*/>Left vacation days: {props.leftDays}</li>
-            <li>Public Holiday 01/01/2018 </li>
+            <li style={style} >Left vacation days: {props.leftDays}</li>
             </ul>
         </div>
     );

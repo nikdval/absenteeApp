@@ -35,9 +35,7 @@ header {
     }
     /* iPad */
     @media all and (min-width:768px) and (max-width:1023px) {
-        .head-nav {
-            height: $header-m-screen;
-        }
+        
 }
     
     /*==========  Non-Mobile First Method  ==========*/
@@ -54,7 +52,9 @@ header {
     
     /* Small Devices, Tablets */
     @media only screen and (max-width : 768px) {
-    
+        .head-nav {
+            height: $header-m-screen;
+        }
     }
     
     /* Extra Small Devices, Phones */
