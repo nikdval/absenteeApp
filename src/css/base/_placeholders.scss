@@ -1,4 +1,8 @@
-%filters{
-	width:20px;
-	height:20px;
+@import 'mixins';
+.btn{
+	width:80px;
+    height: 40px;
+    border:none;
+	margin-left: 5px;
+	@include border-radius(8px);
 }

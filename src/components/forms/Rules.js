@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import moment from 'moment';
 import Info from './Info';
 import RuleText from './RuleText';
@@ -7,11 +7,11 @@ const Rules = (props) => {
 
     const inputs = props.data.initial;
     const members = props.data.members;
-
+    
     const startA = new Date(inputs.vacations.start);
     const endA = new Date(inputs.vacations.end);
     const totalA = totalWorkingDays(startA, endA);
-
+ 
     //European to International
     function formater(day) {
         return moment(day).format('DD/MM/YYYY')
@@ -122,14 +122,15 @@ const Rules = (props) => {
         const totalB = totalWorkingDays(startB, endB);
         const overlaping = inclusiveDays(startA, endA, startB, endB);
         return overlapConstructor(overlaping, element, startB, endB);
-    });
-    const totalLeft=inputs.leftDays - totalA
+    })
+    const totalLeft= inputs.vacations.title=='Vacation'? inputs.leftDays - totalA: inputs.leftDays;
     return (
         <div >
-            <div className="form-section">{rules}</div>
+            <div className='form-section'>{rules}</div>
             <Info
                 current={totalA}
                 leftDays={totalLeft}
+                onChange={props.data.onChange}
             />
         </div>
     );

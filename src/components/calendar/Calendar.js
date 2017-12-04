@@ -3,30 +3,67 @@ import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 
 import HeaderMonth from './HeaderMonth';
-
-
 BigCalendar.momentLocalizer(moment);
+
 
 export default class Calendar extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
       absence: [],
-      month: "",
+      month: '',
     };
     this.selectHandler = this.selectHandler.bind(this);
+    this.styleConstructor = this.styleConstructor.bind(this);
+   
   }
-  eventStyleGetter (event, start, end, isSelected) {
-    var style = {
-        backgroundColor: (event.user==true? "red":"blue"),
-        height: 15,
-        border: '0px',
-        display: 'block'
-    };
+
+  styleConstructor(color){
+    let tempstyle={
+      backgroundColor: eventColor,
+      opacity: 0.9,
+      height: 15,
+      borderRadius: '0px',
+      border: '0px',
+      display: 'block'
+    }
+    return tempstyle
+
+  }
+  eventStyleGetter (event, start) {
+    const colorArray=['#ffd68f','#a0d4f5', '#d0baab', '#f93411']
+    const eventBgColor = event.user? colorArray[0]:event.project?colorArray[3]: colorArray[1]; 
+    const eventColor = event.user? '#532A2A':'#1D242A'; 
+    
+    const holidayStyle={
+      backgroundColor: colorArray[2],
+      opacity: 0.5,
+      color: '#621f23',
+      height: 59,
+      position:'relative',
+      top: '-26px',
+      paddingTop: '30px',
+      borderRadius: '0px',
+      border: '0px',
+      display: 'block'
+    }
+    const absenceStyle = {
+      backgroundColor: eventBgColor,
+      color:eventColor,
+      fontWeight:600,
+      opacity: 0.9,
+      height: 15,
+      borderRadius: '0px',
+      border: '0px',
+      display: 'block'
+    }
+    console.log(event.holiday);
+    const style= event.holiday?holidayStyle: absenceStyle;
     return {
         style: style
     };
 }
+
 /* Open add form and parse data */
 selectHandler(e){ 
   const {trigger} = this.props;
@@ -43,18 +80,22 @@ componentWillReceiveProps(data,month){
 }
 
   render(){
+    const classMobile = 'col-md-4 col-sm-12 '+ this.props.classHide
     return (
-      <div className="col-md-4 col-sm-10">
+      <div className={classMobile}>
         <BigCalendar
           selectable
+          popup
           events={this.props.absence}
           defaultView='month'
+          views={['month']}
           defaultDate={this.state.month}
-          culture="en-GB"
+          culture='en-GB'
           onSelectSlot={(slotInfo) => (this.selectHandler(slotInfo))}
           eventPropGetter={(this.eventStyleGetter)}
           components={{
-            toolbar: HeaderMonth
+            toolbar: HeaderMonth,
+            slotPropGetter: (date: Date) => { className: 'holiday'}
           }}     
         /> 
       </div>

@@ -46,8 +46,8 @@ export default class Main extends React.Component {
   /*API Callback */
   getHolydaysFromApiAsync(events) {
     /*public Holidays from Google API*/
-    var key = "AIzaSyB2V8uPTufJu0ymaRw88u8CftfLo8T9XgA";
-    var country = "uk";
+    var key = 'AIzaSyB2V8uPTufJu0ymaRw88u8CftfLo8T9XgA';
+    var country = 'uk';
     var calendarUrl = 'https://www.googleapis.com/calendar/v3/calendars/en.' + country
       + '%23holiday%40group.v.calendar.google.com/events?key=' + key;
     return fetch(calendarUrl)
@@ -56,16 +56,14 @@ export default class Main extends React.Component {
         let results = responseJson.items
         let holidays = results.map(function (element, index) {
           let holyObj = {
-            "name": element.summary,
-            "title": "Public Holiday",
-            "start": element.start.date,
-            "end": element.start.date,
-            "unit": ""
+            'name': element.summary,
+            'title': 'Public Holiday',
+            'start': element.start.date,
+            'end': element.start.date,
+            'unit': ''
           }
           return holyObj;
         })
-
-        console.log(this.state.holidays)
         /*Combine all data and push them to this.state => Calendar*/
         const totalEvents = events.concat(holidays);
         const resultCalendar = this.dataConstructor(totalEvents, this.state.user);
@@ -84,14 +82,13 @@ export default class Main extends React.Component {
         /*fix end date error*/
         let day = new Date(element.end);
         let nextday = day.setDate(day.getDate()) + 1;
-  
         let e = {
-          "title": (current == element.name ? element.title : element.name) + text,
-          /*-----Alternative title-------
-           "title": element.name + " - " + element.title,*/
-          "start": new Date(element.start),
-          "end": new Date(nextday),
-          "user": (current == element.name ? true : false)
+          'title': (current == element.name ? element.title : element.name) + text,
+          'start': new Date(element.start),
+          'end': new Date(nextday),
+          'user': (current == element.name ? true : false),
+          'holiday':(element.title=='Public Holiday' ? true : false),
+          'project':(element.title=='Report' ? true : false)
         };
         return e;
       });
@@ -107,20 +104,31 @@ export default class Main extends React.Component {
   }
 
   render() {
-    console.log(this.state.holidays);
     return (
-      <div className="main .container-fluid">
-        <div className="row">
-          <button className="col-md-1 btn-nav fa fa-angle-left" id="previous" onClick={(event) => this.onClickBtn(event, false)} ></button>
-          <div className="col-md-10 text-center">
-            <Calendar month={new Date(year, this.state.month, 1)} absence={this.state.absences} trigger={this.onSelectDay} />
-            <Calendar month={new Date(year, this.state.month + 1, 1)} absence={this.state.absences} trigger={this.onSelectDay} />
-            <Calendar month={new Date(year, this.state.month + 2, 1)} absence={this.state.absences} trigger={this.onSelectDay} />
+      <div className='main .container-fluid'>
+        <div className='row'>
+          <button className='col-md-1 col-sm-1 btn-nav fa fa-angle-left' id='previous' onClick={(event) => this.onClickBtn(event, false)} ></button>
+          <div className='col-md-10 col-sm-10 text-center'>
+            <Calendar classHide= {''}
+            month={new Date(year, this.state.month, 1)} 
+            absence={this.state.absences} 
+            trigger={this.onSelectDay} 
+            holidays={this.state.holidays} />
+            <Calendar classHide= {'hide-mobile'}
+            month={new Date(year, this.state.month + 1, 1)} 
+            absence={this.state.absences} 
+            trigger={this.onSelectDay} 
+            holidays={this.state.holidays}/>
+            <Calendar classHide= {'hide-mobile'}
+            month={new Date(year, this.state.month + 2, 1)} 
+            absence={this.state.absences} 
+            trigger={this.onSelectDay} 
+            holidays={this.state.holidays} />
           </div>
-          <button className="col-md-1 btn-nav fa fa-angle-right" id="next" onClick={(event) => this.onClickBtn(event, true)}></button>
+          <button className='col-md-1 col-sm-1 btn-nav fa fa-angle-right' id='next' onClick={(event) => this.onClickBtn(event, true)}></button>
         </div>
-        <div className="row">
-          <button className="invisible" id="openModal" data-toggle="modal" data-target="#myModal" onClick={this.toggleModal}>Open Modal</button>
+        <div className='row'>
+          <button className='invisible' id='openModal' data-toggle='modal' data-target='#myModal' onClick={this.toggleModal}>Open Modal</button>
           <AddModal
             show={this.toggleModal}
             onClose={this.toggleModal}
@@ -165,10 +173,12 @@ export default class Main extends React.Component {
     let nextday = day.setDate(day.getDate() + 1);
 
     const newEvent = {
-      'title': newData.title + ":Absent " + unit,
-      "start": new Date(newData.start),
-      "end": new Date(nextday),
-      "user": true
+      'title': newData.title + ':Absent ' + unit,
+      'start': new Date(newData.start),
+      'end': new Date(nextday),
+      'user': true,
+      'holiday':false,
+      'project': false
     }
 
     const newabsence = this.state.absences;

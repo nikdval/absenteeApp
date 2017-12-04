@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PropTypes } from 'react';
 import moment from 'moment';
 import AddForm from './AddForm';
 
@@ -23,34 +23,34 @@ export default class AddModal extends React.Component {
     componentWillReceiveProps(data) {
         this.setState({
             vacations:{
-                title: '',
-                start: moment(this.props.date.start).format('YYYY-MM-DD'),
-                end:moment(this.props.date.end).format('YYYY-MM-DD'),
-                unit: ''
+                title: 'Vacation',
+                start: moment(this.props.date.start).format('YYYY,MM,DD'),
+                end:moment(this.props.date.end).format('YYYY,MM,DD'),
+                unit: 'allDay'
                 }   
         });
     }
     render() {
-        // Render nothing if the "show" is false
+        // Render nothing if the 'show' is false
         if (!this.props.show) {
             return null;
         } 
         return (
-            <div className="modal fade" id="myModal" role="dialog"  >
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <button type="button" className="close" data-dismiss="modal" onClick={this.props.onClose}>&times;</button>
-                            <h4 className="modal-title">Modal Header</h4>
+            <div className='modal fade' id='myModal' role='dialog'  >
+                <div className='modal-dialog'>
+                    <div className='modal-content'>
+                        <div className='modal-header'>
+                            <button type='button' className='close' data-dismiss='modal' onClick={this.props.onClose}>&times;</button>
+                            <h4 className='modal-title'>Add Absence</h4>
                         </div>
-                        
+                        <div className='modal-body'>
                            <AddForm 
                            initial= {this.state} 
                            onChange={this.handleChange} 
                            onSubmit={this.handleSubmit} 
                            onClose ={this.props.onClose} 
                            members={this.props.members} />
-                           
+                           </div>
                     </div>
                 </div>
             </div>
@@ -76,7 +76,13 @@ export default class AddModal extends React.Component {
          * The new vacation days will be referenced to the current user
          */
         console.log(this.state.vacations);
-        console.log("EXAMPLE SERVER UPDATE REQUES");
+        console.log('EXAMPLE SERVER UPDATE REQUES');
         this.props.update(this.state.vacations); 
+        
     }
 }
+// Specifies the default values for props:
+AddModal.defaultProps = {
+        title: 'Vacation',
+        unit: 'allDay'
+  };

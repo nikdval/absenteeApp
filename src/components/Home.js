@@ -5,7 +5,7 @@ import Main from './Main';
 import UserHeader from './base/UserHeader';
 
 import base from '../css/base.scss';
-require("!style!css!react-big-calendar/lib/css/react-big-calendar.css")
+require('!style!css!react-big-calendar/lib/css/react-big-calendar.css')
 
 export default class Home extends React.Component {
     constructor(props) {
@@ -14,7 +14,7 @@ export default class Home extends React.Component {
             events: this.props,
             user:{
                 id:5,
-                name: "Mark Twain",
+                name: 'Mark Twain',
                 leftDays:12      
             }
         };

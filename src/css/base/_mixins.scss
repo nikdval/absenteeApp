@@ -9,6 +9,3 @@
     -moz-border-radius: $arc;
     border-radius: $arc;
 }
-@mixin border-solid($stroke,$color){
-    border:$stroke $color solid;
-}

@@ -45,7 +45,9 @@
     }
     /* iPad */
     @media all and (min-width:768px) and (max-width:1023px) {
-       
+        .monthNum{
+            margin-top: 1%;
+        }
     }
     
     /*==========  Non-Mobile First Method  ==========*/
@@ -63,7 +65,9 @@
     
     /* Small Devices, Tablets */
     @media only screen and (max-width : 768px) {
-        
+        .monthNum{
+            margin-top: 10px;
+        }
     }
     
     /* Extra Small Devices, Phones */
