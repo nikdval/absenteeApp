@@ -12,6 +12,15 @@ export default class HeaderMonth extends React.Component{
       monthNum: moment().month(titleArray[0]).format('M')
     };
   }
+  // componentWillMount(){
+  //   this.componentWillReceiveProps(this.state)
+  // }
+  // componentWillReceiveProps(newState){
+  //   this.setState({
+  //     newState
+  //   })
+    
+  // }
     render(){
         let label = this.props;
         let num = '1';

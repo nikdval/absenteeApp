@@ -9,6 +9,9 @@
   &:nth-child(6n), &:nth-child(7n){
     background: $greydark;
   }
+  .rbc-row{
+    font-size: 12px;
+  }
 }
 
 .rbc-today{

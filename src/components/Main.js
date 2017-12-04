@@ -65,7 +65,7 @@ export default class Main extends React.Component {
           return holyObj;
         })
         /*Combine all data and push them to this.state => Calendar*/
-        const totalEvents = events.concat(holidays);
+        const totalEvents = holidays.concat(events);
         const resultCalendar = this.dataConstructor(totalEvents, this.state.user);
         this.componentWillReceiveProps(resultCalendar, events, holidays);
       })
@@ -123,7 +123,8 @@ export default class Main extends React.Component {
             month={new Date(year, this.state.month + 2, 1)} 
             absence={this.state.absences} 
             trigger={this.onSelectDay} 
-            holidays={this.state.holidays} />
+            holidays={this.state.holidays} 
+            onNavigate={this.onClickBtn} />
           </div>
           <button className='col-md-1 col-sm-1 btn-nav fa fa-angle-right' id='next' onClick={(event) => this.onClickBtn(event, true)}></button>
         </div>
@@ -147,16 +148,19 @@ export default class Main extends React.Component {
   /*Buton onCick*/
   onClickBtn(e, navigation) {
     e.preventDefault();
+   // toolbar.date.setMonth(toolbar.date.getMonth() + 1);
+    //toolbar.onNavigate('NEXT');
     if (navigation == true) {
       tempMonth = this.state.month + 1;
     } else {
       tempMonth = this.state.month - 1;
     }
-    console.log(Number(tempMonth))
+    console.log(this.state.month);
+    //const newMonth=new Date(year,tempMonth,1).getMonth();
     this.setState({
-      month: Number(tempMonth)
+      month: tempMonth
     });
-
+    // console.log(this.state.month);
   }
   /*AddForm */
   onSelectDay(selectDay) {

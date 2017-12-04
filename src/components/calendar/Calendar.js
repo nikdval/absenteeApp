@@ -38,26 +38,24 @@ export default class Calendar extends React.Component{
     const holidayStyle={
       backgroundColor: colorArray[2],
       opacity: 0.5,
-      color: '#621f23',
-      height: 59,
-      position:'relative',
-      top: '-26px',
-      paddingTop: '30px',
-      borderRadius: '0px',
+      color: colorArray[2],
+      width: '16px',
+      height: '16px',
+      position: 'relative',
+      bottom: '22px',
+      borderRadius: '50%',
       border: '0px',
-      display: 'block'
     }
     const absenceStyle = {
       backgroundColor: eventBgColor,
       color:eventColor,
       fontWeight:600,
       opacity: 0.9,
-      height: 15,
+      height: 16,
       borderRadius: '0px',
       border: '0px',
       display: 'block'
     }
-    console.log(event.holiday);
     const style= event.holiday?holidayStyle: absenceStyle;
     return {
         style: style
@@ -77,9 +75,11 @@ componentWillReceiveProps(data,month){
     absence: data,
     month:month
   })
+  
 }
 
   render(){
+    console.log(this.props.month);
     const classMobile = 'col-md-4 col-sm-12 '+ this.props.classHide
     return (
       <div className={classMobile}>
@@ -89,10 +89,11 @@ componentWillReceiveProps(data,month){
           events={this.props.absence}
           defaultView='month'
           views={['month']}
-          defaultDate={this.state.month}
+          defaultDate={this.props.month}
           culture='en-GB'
           onSelectSlot={(slotInfo) => (this.selectHandler(slotInfo))}
           eventPropGetter={(this.eventStyleGetter)}
+          onNavigate={this.props.onNavigate}
           components={{
             toolbar: HeaderMonth,
             slotPropGetter: (date: Date) => { className: 'holiday'}
