@@ -5,12 +5,13 @@ import Rules from './Rules';
 const AddForm = (props) => {
     return (
         <div>
-            <form action='/' onSubmit={props.onSubmit} >
+            <form onSubmit={props.onSubmit} >
                 <div className='rules' id='table'>
-                <FormTable data = {props} />
+                    <FormTable data={props} />
+                    <p className='text-right error'><i>{props.initial.errors}</i></p>
                 </div>
                 <div className='rules' id='rules'>
-                    <Rules data = {props} />
+                    <Rules data={props} />
                 </div>
                 <div className='modal-footer'>
                     <button className='btn-primary' type='submit' data-dismiss='modal' onClick={props.onSubmit} >
@@ -21,7 +22,7 @@ const AddForm = (props) => {
             </form>
         </div>
     );
-   
+
 }
 
 export default AddForm;

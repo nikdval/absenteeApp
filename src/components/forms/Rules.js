@@ -11,8 +11,7 @@ const Rules = (props) => {
     const startA = new Date(inputs.vacations.start);
     const endA = new Date(inputs.vacations.end);
     const totalA = totalWorkingDays(startA, endA);
- 
-    //European to International
+
     function formater(day) {
         return moment(day).format('DD/MM/YYYY')
     }
@@ -36,9 +35,7 @@ const Rules = (props) => {
         } else {
             iDateDiff = ((iWeeks + 1) * 5) - (iWeekday1 - iWeekday2)
         }
-
         iDateDiff -= iAdjust  // take into account both days on weekend
-
         return (iDateDiff + 1);   // add 1 because dates are inclusive
     }
     /**
@@ -81,6 +78,7 @@ const Rules = (props) => {
             return b_date;
     }
     /*==========================================*/
+    
     function overlapConstructor(overlap, member, start, end) {
         if (overlap != 0) {
             if (overlap >= 4) {

@@ -10,7 +10,7 @@ export default class HeaderMonth extends React.Component {
       month: this.dateFormater(toolbarDate, 'MMMM'),
       year: this.dateFormater(toolbarDate, 'YYYY'),
       monthNum: this.dateFormater(toolbarDate, 'M'),
-      temp:0
+      monthscount: 0 //count clicks - limit 0-12
     };
     this.goToBack = this.goToBack.bind(this);
     this.goToNext = this.goToNext.bind(this);
@@ -25,14 +25,17 @@ export default class HeaderMonth extends React.Component {
       mDate.getFullYear(),
       mDate.getMonth() - 1,
       1);
-    this.props.onNavigate('prev', newDate);
-    this.setState({
-      currentdate: newDate,
-      month: this.dateFormater(newDate, 'MMMM'),
-      year: this.dateFormater(newDate, 'YYYY'),
-      monthNum: this.dateFormater(newDate, 'M')
-    })
-    document.getElementById('btn-back').click();
+    if (this.state.monthscount > 0) {
+      this.props.onNavigate('prev', newDate);
+      this.setState({
+        currentdate: newDate,
+        month: this.dateFormater(newDate, 'MMMM'),
+        year: this.dateFormater(newDate, 'YYYY'),
+        monthNum: this.dateFormater(newDate, 'M'),
+        monthscount: this.state.monthscount - 1
+      })
+      document.getElementById('btn-back').click();
+    }
   }
   goToNext() {
     let mDate = this.state.currentdate;;
@@ -40,14 +43,18 @@ export default class HeaderMonth extends React.Component {
       mDate.getFullYear(),
       mDate.getMonth() + 1,
       1);
-    this.props.onNavigate('next', newDate);
-    this.setState({
-      currentdate: newDate,
-      month: this.dateFormater(newDate, 'MMMM'),
-      year: this.dateFormater(newDate, 'YYYY'),
-      monthNum: this.dateFormater(newDate, 'M')
-    })
-    document.getElementById('btn-next').click();
+    if (this.state.monthscount < 11) {
+      this.props.onNavigate('next', newDate);
+      this.setState({
+        currentdate: newDate,
+        month: this.dateFormater(newDate, 'MMMM'),
+        year: this.dateFormater(newDate, 'YYYY'),
+        monthNum: this.dateFormater(newDate, 'M'),
+        monthscount: this.state.monthscount + 1
+      })
+      document.getElementById('btn-next').click();
+    }
+
   }
   render() {
     return (

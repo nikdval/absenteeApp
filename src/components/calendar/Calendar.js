@@ -6,7 +6,7 @@ import HeaderMonth from './HeaderMonth';
 BigCalendar.momentLocalizer(moment);
 
 
-export default class Calendar extends React.Component{
+export default class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,13 +15,13 @@ export default class Calendar extends React.Component{
     };
     this.selectHandler = this.selectHandler.bind(this);
   }
+  /* Style events */
+  eventStyleGetter(event, start) {
+    const colorArray = ['#ffd68f', '#a0d4f5', '#d0baab', '#f93411']
+    const eventBgColor = event.user ? colorArray[0] : event.project ? colorArray[3] : colorArray[1];
+    const eventColor = event.user ? '#532A2A' : '#1D242A';
 
-  eventStyleGetter (event, start) {
-    const colorArray=['#ffd68f','#a0d4f5', '#d0baab', '#f93411']
-    const eventBgColor = event.user? colorArray[0]:event.project?colorArray[3]: colorArray[1]; 
-    const eventColor = event.user? '#532A2A':'#1D242A'; 
-    
-    const holidayStyle={
+    const holidayStyle = {
       backgroundColor: colorArray[2],
       opacity: 0.5,
       color: colorArray[2],
@@ -34,39 +34,37 @@ export default class Calendar extends React.Component{
     }
     const absenceStyle = {
       backgroundColor: eventBgColor,
-      color:eventColor,
-      fontWeight:600,
+      color: eventColor,
+      fontWeight: 600,
       opacity: 0.9,
       height: 16,
       borderRadius: '0px',
       border: '0px',
       display: 'block'
     }
-    const style= event.holiday?holidayStyle: absenceStyle;
+    const style = event.holiday ? holidayStyle : absenceStyle;
     return {
-        style: style
+      style: style
     };
-}
+  }
 
-/* Open add form and parse data */
-selectHandler(e){ 
-  const {trigger} = this.props;
-  trigger(e);
-}
-componentWillMount(){
-  this.componentWillReceiveProps(this.props.absence, this.props.month)
-}
-componentWillReceiveProps(data,month){
-  this.setState({
-    absence: data,
-    month:month
-  })
-  
-}
-
-  render(){
+  /* Open add form and parse data */
+  selectHandler(e) {
+    const { trigger } = this.props;
+    trigger(e);
+  }
+  componentWillMount() {
+    this.componentWillReceiveProps(this.props.absence, this.props.month)
+  }
+  componentWillReceiveProps(data, month) {
+    this.setState({
+      absence: data,
+      month: month
+    })
+  }
+  render() {
     const tempDate = this.props.month
-    const classMobile = 'col-md-6 col-sm-11 '+ this.props.classHide
+    const classMobile = 'col-md-6 col-sm-11 ' + this.props.classHide
     return (
       <div className={classMobile}>
         <BigCalendar
@@ -81,9 +79,9 @@ componentWillReceiveProps(data,month){
           eventPropGetter={(this.eventStyleGetter)}
           components={{
             toolbar: HeaderMonth,
-         
-          }}     
-        /> 
+
+          }}
+        />
       </div>
     )
   }
