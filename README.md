@@ -1,7 +1,7 @@
 # Abentee Manager
 
 ## USAGE
-Follow next article or Download this repository
+Absentee Manager is a tool for big teams to schedule the time of absence of their members, avoiding any clashes. The design of the application helps the user to have a general overview of the different members’ absence and notifications for specific members when he adds a new absence to the system.
 
 ## Build With
 * React
@@ -9,7 +9,7 @@ Follow next article or Download this repository
 * https://developers.google.com/google-apps/calendar/
 
 
-## =============== Local Installation ===============
+## ======== Local Installation =========
 ### Git Clone
 * git clone https://github.com/nikdval/absenteeApp
 
